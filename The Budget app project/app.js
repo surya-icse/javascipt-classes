@@ -47,7 +47,7 @@ var budgetController = (function () {
             }
             //push it into data structure
             data.allItems[type].push(newItem);
-            //return the bew element
+            //return the new element
             return newItem;
         },
 
@@ -68,6 +68,8 @@ var UIController = (function () {
         inputDescription: '.add__description',
         inputValue: '.add__value',
         inputButton: '.add__btn',
+        incomeContainer:'.income__list',
+        expensesContainer:'.expenses__list',
     };
     return {
         getinput: function () {
@@ -78,8 +80,36 @@ var UIController = (function () {
             };
         },
         addListItem:function(obj,type){
+            // Create HTML string with placeholder text 
+            var html,newHtml,element;
+            if(type==='inc'){
+                element=DOMstrings.incomeContainer;
+                html='<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
+            else if(type==='exp'){
+                element=DOMstrings.expensesContainer;
+                html='<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            }
 
+            // Replace  placeholder text with some actual data
+            newHtml = html.replace('%id%',obj.id);
+            newHtml = newHtml.replace('%description%',obj.description);
+            newHtml = newHtml.replace('%value%',obj.value);
+
+            //insert HTML into DOM
+            document.querySelector(element).insertAdjacentHTML('beforeend',newHtml)
         },
+        clearFields:function(){
+            var fields,fieldsArray;
+            fields = document.querySelectorAll(DOMstrings.inputDescription +','+DOMstrings.inputValue);
+            fieldsArray = Array.prototype.slice.call(fields);
+
+            fieldsArray.forEach(function(current,index,array){
+                current.value="";
+            })
+            fieldsArray[0].focus();
+        }
+        ,
         getDOMstrings: function () {
             return DOMstrings
         }
@@ -114,12 +144,14 @@ var controller = (function (budgetCtrl, UICtrl) {
         newItem = budgetCtrl.addItem(input.type,input.description,input.value);
         
         //3- add item to the UI
+        UICtrl.addListItem(newItem,input.type);
+
+        //4-clear the fields
+        UICtrl.clearFields();
+        //5- Calculate the Budget
 
         
-        //4- Calculate the Budget
-
-        
-        //5- Display the budget on the UI
+        //6- Display the budget on the UI
 
     };
 
