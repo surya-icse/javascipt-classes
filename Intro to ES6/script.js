@@ -278,3 +278,69 @@
 ////////////////////////////////////////////////////
 // Lecture : Rest Parameter
 
+//ES5
+
+// function isFullAge(){
+//     // console.log(arguments);
+//     var argsArr = Array.prototype.slice.call(arguments);
+//     argsArr.forEach(cur=>console.log((2016-cur)>=18));
+// }
+
+// isFullAge(1990,1999,1965);
+// isFullAge(1990,1999,1965,2016,1987);
+
+//ES6
+// function isFullAge6(...years){
+//     years.forEach(cur => console.log((2016-cur)>=18));
+// }
+
+// isFullAge6(1990,1999,1965,2016,1987);
+
+//ES5
+
+// function isFullAge(limit){
+//     // console.log(arguments);
+//     var argsArr = Array.prototype.slice.call(arguments,1);
+//     console.log(argsArr);
+//     argsArr.forEach(cur=>console.log((2016-cur)>=limit));
+// }
+
+// isFullAge(18,1990,1999,1965);
+// isFullAge(1990,1999,1965,2016,1987);
+
+//ES6
+// function isFullAge6(limit,...years){
+//     years.forEach(cur => console.log((2016-cur)>=limit));
+// }
+
+// isFullAge6(21,1990,1999,1965,2016,1987);
+
+////////////////////////////////////////////////////
+// Lecture : Default Parameter
+
+// function Smith(firstName,yearOfBirth,lastName,nationality)
+// {
+
+//     lastName===undefined ? lastName='smith':lastName=lastName;
+//     nationality===undefined ? nationality='Indian':nationality=nationality;
+
+//     this.firstName=firstName;
+//     this.lastName=lastName;
+//     this.yearOfBirth=yearOfBirth;
+//     this.nationality=nationality;
+// }
+
+//ES6
+// function Smith(firstName,yearOfBirth,lastName='Smith',nationality='Indian'){
+//         this.firstName=firstName;
+//         this.lastName=lastName;
+//         this.yearOfBirth=yearOfBirth;
+//         this.nationality=nationality;
+// }
+
+// var john = new Smith('john',1990);
+// var emily = new Smith('emily',1983,'Diaz');
+
+////////////////////////////////////////////////////
+// Lecture : Maps
+
